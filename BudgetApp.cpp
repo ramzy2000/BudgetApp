@@ -13,6 +13,9 @@ BudgetApp::BudgetApp(QWidget *parent)
     setWindowTitle("Budget App");
 
     SetupDB();
+
+    showBudgetsForm = new ShowBudgetsForm(nullptr);
+    this->setCentralWidget(showBudgetsForm);
 }
 
 void BudgetApp::SetupDB()

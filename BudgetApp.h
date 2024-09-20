@@ -28,6 +28,7 @@
 
 #include <QMainWindow>
 #include <QSqlDatabase>
+#include "showbudgetsform.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -46,6 +47,9 @@ public:
 private:
     Ui::BudgetApp *ui;
     QSqlDatabase db;
+
+    ShowBudgetsForm* showBudgetsForm;
+
 
     void SetupDB();
     void SetupTables();

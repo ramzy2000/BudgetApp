@@ -10,13 +10,16 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    BudgetApp.cpp
+    BudgetApp.cpp \
+    showbudgetsform.cpp
 
 HEADERS += \
-    BudgetApp.h
+    BudgetApp.h \
+    showbudgetsform.h
 
 FORMS += \
-    BudgetApp.ui
+    BudgetApp.ui \
+    showbudgetsform.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
