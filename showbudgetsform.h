@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QSqlTableModel>
 #include <QSqlDatabase>
+#include <QSqlRecord>
 
 namespace Ui {
 class ShowBudgetsForm;
@@ -19,6 +20,11 @@ public:
 
 public slots:
     void insertNewBudget(const QString& name);
+
+    void removeBudget();
+
+signals:
+    void selectBudget(const QSqlRecord& record);
 
 private:
     Ui::ShowBudgetsForm *ui;

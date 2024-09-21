@@ -20,7 +20,7 @@
  * use QPushButton's to insert, remove and select budgets.
  *
  * Calculate Budget : Use the current selected budget_id and use this to populate the UI.
- * Create a Widget called BudgetForm Widget that will user QSqlTabelModel for expenses with a QTabelView to display and modify the
+ * Create a Widget called BudgetForm Widget that will use QSqlTabelModel for expenses with a QTabelView to display and modify the
  * expenses name and amount. Use another QSqlTableModel for income with a QTableView to display and
  * modify income name and amount. Show the net profit of the budget at the bottom of the widget.
  *
@@ -28,7 +28,9 @@
 
 #include <QMainWindow>
 #include <QSqlDatabase>
+#include <QSqlRecord>
 #include "showbudgetsform.h"
+#include "budgetform.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -44,14 +46,19 @@ public:
     BudgetApp(QWidget *parent = nullptr);
     ~BudgetApp();
 
+public slots:
+    void budgetSelected(const QSqlRecord& record);
+
 private:
     Ui::BudgetApp *ui;
     QSqlDatabase db;
 
-    ShowBudgetsForm* showBudgetsForm;
-
+    ShowBudgetsForm* showBudgetsForm = nullptr;
+    BudgetForm* budgetForm = nullptr;
 
     void SetupDB();
     void SetupTables();
+
+    void deleteBudgetForm();
 };
 #endif // BUDGETAPP_H

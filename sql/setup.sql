@@ -10,7 +10,8 @@ CREATE TABLE "budget" (
 
 CREATE TABLE "expense" (
         "expense_id"	INTEGER,
-        "name"	TEXT NOT NULL UNIQUE,
+        "budget_id"     INTEGER NOT NULL,
+        "name"	TEXT NOT NULL,
         "amount"	NUMERIC NOT NULL,
         PRIMARY KEY("expense_id" AUTOINCREMENT)
 );
@@ -18,7 +19,8 @@ CREATE TABLE "expense" (
 --Create the Income table
 CREATE TABLE "income" (
         "income_id"	INTEGER,
-        "name"	TEXT NOT NULL UNIQUE,
+        "budget_id"     INTEGER NOT NULL,
+        "name"	TEXT NOT NULL,
         "amount"	NUMERIC NOT NULL,
         PRIMARY KEY("income_id" AUTOINCREMENT)
 );

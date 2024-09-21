@@ -11,11 +11,14 @@ BudgetApp::BudgetApp(QWidget *parent)
 {
     ui->setupUi(this);
     setWindowTitle("Budget App");
+    showFullScreen();
 
     SetupDB();
 
     showBudgetsForm = new ShowBudgetsForm(nullptr);
     this->setCentralWidget(showBudgetsForm);
+
+    connect(showBudgetsForm, &ShowBudgetsForm::selectBudget, this, &BudgetApp::budgetSelected);
 }
 
 void BudgetApp::SetupDB()
@@ -51,6 +54,37 @@ void BudgetApp::SetupTables()
     for(const QString& script : scripts)
     {
         query.exec(script);
+    }
+}
+
+void BudgetApp::budgetSelected(const QSqlRecord& record)
+{
+    qDebug() << record;
+
+    if(!budgetForm)
+    {
+        budgetForm = new BudgetForm(nullptr, record.value(0));
+        takeCentralWidget();
+        setCentralWidget(budgetForm);
+
+        // connect signal to close and delete the budgetform
+        connect(budgetForm->getExitButton(), &QPushButton::clicked,
+                this, &BudgetApp::deleteBudgetForm);
+    }
+}
+
+void BudgetApp::deleteBudgetForm()
+{
+    if(budgetForm)
+    {
+        delete budgetForm;
+        //setCentralWidget(showBudgetsForm);
+        //delete budgetForm;
+        budgetForm = nullptr;
+        //setCentralWidget(showBudgetsForm);
+        //setCentralWidget(nullptr);
+        takeCentralWidget();
+        setCentralWidget(showBudgetsForm);
     }
 }
 

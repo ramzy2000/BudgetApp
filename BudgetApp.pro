@@ -9,16 +9,19 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    budgetform.cpp \
     main.cpp \
     BudgetApp.cpp \
     showbudgetsform.cpp
 
 HEADERS += \
     BudgetApp.h \
+    budgetform.h \
     showbudgetsform.h
 
 FORMS += \
     BudgetApp.ui \
+    budgetform.ui \
     showbudgetsform.ui
 
 # Default rules for deployment.
