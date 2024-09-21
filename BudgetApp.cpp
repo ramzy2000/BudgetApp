@@ -15,6 +15,7 @@ BudgetApp::BudgetApp(QWidget *parent)
 
     SetupDB();
 
+    // setup the UI
     showBudgetsForm = new ShowBudgetsForm(nullptr);
     this->setCentralWidget(showBudgetsForm);
 
@@ -59,8 +60,6 @@ void BudgetApp::SetupTables()
 
 void BudgetApp::budgetSelected(const QSqlRecord& record)
 {
-    qDebug() << record;
-
     if(!budgetForm)
     {
         budgetForm = new BudgetForm(nullptr, record.value(0));
@@ -78,11 +77,7 @@ void BudgetApp::deleteBudgetForm()
     if(budgetForm)
     {
         delete budgetForm;
-        //setCentralWidget(showBudgetsForm);
-        //delete budgetForm;
         budgetForm = nullptr;
-        //setCentralWidget(showBudgetsForm);
-        //setCentralWidget(nullptr);
         takeCentralWidget();
         setCentralWidget(showBudgetsForm);
     }
@@ -90,5 +85,6 @@ void BudgetApp::deleteBudgetForm()
 
 BudgetApp::~BudgetApp()
 {
+    delete showBudgetsForm;
     delete ui;
 }

@@ -18,7 +18,7 @@
     <widget class="QGroupBox" name="groupBox">
      <property name="font">
       <font>
-       <pointsize>40</pointsize>
+       <pointsize>20</pointsize>
       </font>
      </property>
      <property name="title">

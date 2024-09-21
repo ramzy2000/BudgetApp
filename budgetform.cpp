@@ -20,8 +20,6 @@ BudgetForm::BudgetForm(QWidget *parent, const QVariant& budgetId)
     ui->expenseTableView->setColumnHidden(0, true);
     ui->expenseTableView->setColumnHidden(1, true);
     ui->expenseTableView->resizeColumnsToContents();
-
-
     incomeModel = new QSqlTableModel(this);
     incomeModel->setTable("income");
     incomeModel->setFilter("budget_id="+budgetId.toString());
@@ -31,9 +29,10 @@ BudgetForm::BudgetForm(QWidget *parent, const QVariant& budgetId)
     ui->incomeTableView->setColumnHidden(1, true);
     ui->incomeTableView->resizeColumnsToContents();
 
-    calculateNetProfit();
+    calculateNetProfit(); // calculate the net profit from the data
 
 
+    // connect signals to slots
     connect(ui->insertExpenseButton, &QPushButton::clicked,
             this, &BudgetForm::insertNewExpense);
     connect(ui->removeExpenseButton, &QPushButton::clicked,
@@ -61,18 +60,14 @@ void BudgetForm::insertNewExpense()
     QString name = QInputDialog::getText(this, "Expense", "Expense Name : ");
     if(name.isEmpty())
         return;
-
     double amount = QInputDialog::getDouble(this, "Amount", "Expense Amount : ");
-
     QSqlRecord record = expensesModel->record();
     record.setValue(1, budgetId);
     record.setValue(2, name);
     record.setValue(3, amount);
-
     expensesModel->insertRecord(0, record);
     expensesModel->select();
     calculateNetProfit();
-
 }
 
 void BudgetForm::removeExpense()
@@ -90,14 +85,11 @@ void BudgetForm::insertNewIncome()
     QString name = QInputDialog::getText(this, "Income", "Income Name : ");
     if(name.isEmpty())
         return;
-
     double amount = QInputDialog::getDouble(this, "Income", "Income Amount : ");
-
     QSqlRecord record = incomeModel->record();
     record.setValue(1, budgetId);
     record.setValue(2, name);
     record.setValue(3, amount);
-
     incomeModel->insertRecord(0, record);
     incomeModel->select();
     calculateNetProfit();
@@ -120,7 +112,6 @@ void BudgetForm::calculateNetProfit()
     {
         QSqlRecord record = expensesModel->record(i);
         double amount = record.value(3).toDouble();
-        qDebug() << amount;
         totalExpenseAmount += amount;
     }
 
@@ -132,8 +123,6 @@ void BudgetForm::calculateNetProfit()
         double amount = record.value(3).toDouble();
         totalIncomeAmount += amount;
     }
-
-    qDebug() << totalExpenseAmount;
 
     // subtract using income - expenses = net profit
     ui->netProfitLabel->setText(QString::number(totalIncomeAmount - totalExpenseAmount));
