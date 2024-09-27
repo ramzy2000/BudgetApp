@@ -11,7 +11,7 @@ BudgetApp::BudgetApp(QWidget *parent)
 {
     ui->setupUi(this);
     setWindowTitle("Budget App");
-    showFullScreen();
+    this->setWindowState(Qt::WindowMaximized);
 
     SetupDB();
 
