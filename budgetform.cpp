@@ -60,7 +60,8 @@ void BudgetForm::insertNewExpense()
     QString name = QInputDialog::getText(this, "Expense", "Expense Name : ");
     if(name.isEmpty())
         return;
-    double amount = QInputDialog::getDouble(this, "Amount", "Expense Amount : ");
+    double amount = QInputDialog::getDouble(this, "Amount", "Expense Amount : "
+                                            , 0.00f, 0, 2147483647, 2);
     QSqlRecord record = expensesModel->record();
     record.setValue(1, budgetId);
     record.setValue(2, name);
@@ -85,7 +86,8 @@ void BudgetForm::insertNewIncome()
     QString name = QInputDialog::getText(this, "Income", "Income Name : ");
     if(name.isEmpty())
         return;
-    double amount = QInputDialog::getDouble(this, "Income", "Income Amount : ");
+    double amount = QInputDialog::getDouble(this, "Income", "Income Amount : "
+                                            , 0.00f, 0, 2147483647, 2);
     QSqlRecord record = incomeModel->record();
     record.setValue(1, budgetId);
     record.setValue(2, name);

@@ -55,7 +55,6 @@ void ShowBudgetsForm::RefreshList()
 
 void ShowBudgetsForm::insertNewBudget(const QString& name)
 {
-    qDebug() << name;
     if(name.isEmpty())
         return;
     QSqlRecord record = model->record();
